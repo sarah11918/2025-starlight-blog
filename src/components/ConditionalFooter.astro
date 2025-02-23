@@ -1,0 +1,77 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Footer.astro';
+import License from './License.astro';
+
+
+const isBlog = Astro.locals.starlightRoute.id.slice(0,5) === 'blog/';
+const isTags = Astro.locals.starlightRoute.id.slice(0,8) === 'blog/tags/';
+// console.log(Astro.props.slug.slice(0,10))
+
+const isHomePage = Astro.locals.starlightRoute.id === '';
+
+const isOtherPage = !isHomePage
+---
+
+{ isBlog && (
+   <details>
+    <summary>Toggle Comments</summary>
+    <div class="feedback">
+      <script src="https://giscus.app/client.js"
+        data-repo="sarah11918/starlight-blog-comments"
+        data-repo-id="R_kgDOMNav6A"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOMNav6M4CgVsQ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous">
+      </script>
+   </div>
+   </details> 
+) 
+}
+
+{ isOtherPage && (
+<Default><slot /></Default> 
+)}
+
+<License />
+
+<style>
+  .feedback {
+  background-color: #fff3f6;
+  border-radius: .5em;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+.gsc-reactions-count {
+  color: #582436 !important;
+}
+
+.gsc-comments-count {
+  color: #582436 !important;
+}
+
+summary {
+  list-style-type: '💬  ';
+} 
+
+details {
+  color: #582436;
+  text-align: center;
+  padding: 10px;
+  background-color: #edd5d5;
+  border-radius: 5px;
+}
+ h4 {
+color: #582436
+} 
+</style>
+
